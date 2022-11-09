@@ -29,7 +29,7 @@ if(isset($_POST['forget']) )
 
 
 
-      header("Location:../view-reports.html?success=".seialize($success));
+      header("Location:../view-reports.html?success=".serialize($success));
     }
     else
     {
@@ -65,7 +65,7 @@ if(isset($_POST['forget']) )
 
 
 
-      header("Location:../Medi-Report.html?success=".seialize($success));
+      header("Location:../Medi-Report.html?success=".serialize($success));
     }
     else
     {
