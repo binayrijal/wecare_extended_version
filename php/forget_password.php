@@ -1,5 +1,3 @@
-
-
 <?php
 session_start();
 if(isset($_POST['forget']) )
@@ -29,7 +27,11 @@ if(isset($_POST['forget']) )
 
 
 
+<<<<<<< HEAD
       header("Location:../view-reports.html?success=".serialize($success));
+=======
+      header("Location:../view-reports.php?success=".serialize($success));
+>>>>>>> c3263b8e459a3a3c366bfbc844c6f2399a258202
     }
     else
     {
@@ -101,4 +103,3 @@ else{
     echo"<script>alert('You have no permission here!!')</script>";
     header('Location:../first.html');
 }
-?>
