@@ -1,34 +1,27 @@
-
-<script>
-    var report_id=0;
-
-    </script>
-
 <?php
-
 
 
 
 include './php/configure.php';
 
-session_start();//session started
+ session_start();//session started
 
-if($_SESSION['p_report'])
-{
+if (isset($_POST['submit'])) {
+
+    
+$username = $_POST['username'];
+
+$_SESSION['p_report'] =$username;
+
+// $_SESSION['p_report']=$username;
+
+}
+
+else if($_SESSION['p_report'] )
+{   
     $username=$_SESSION['p_report'];
 }
 
-else if (isset($_POST['submit'])) {
-
-    
-
-
-
-
-$username = $_POST['username'];
-$_SESSION['p_report']=$username;
-
-}
 else{
     header("Location:./first.html?error=direct access is not permitted");
 }
@@ -51,15 +44,19 @@ $result = mysqli_query($conn, $sql);
     <title>WeCare-DoctorMedi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/78e6212ab3.js" crossorigin="anonymous"></script>
+    <!-- favicon ko link  -->
+    <link rel="shortcut icon" href="./images/logooo.png" type="image/x-icon">
+
     <style>
     .nav-link .px-2 .link-light .fs-5 .ddd {
         color: purple !important;
     }
 
     main {
-        /* background-image: url("./images/hospital.jpg"); */
-        /* background-position: center;
-      background-repeat: no-repeat; */
+      background-image: url(./images/hospital.jpg);
+      /* background-repeat: no-repeat; */
+      background-size: contain;
+      margin-top: 0px;
 
     }
 
@@ -96,7 +93,6 @@ $result = mysqli_query($conn, $sql);
                         <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li>
@@ -197,7 +193,7 @@ $result = mysqli_query($conn, $sql);
                                             data-bs-target="#exampleModal">View</a>
                                         <a href="#" class="btn btn-outline-danger my-2" data-bs-toggle="modal"
                                             data-bs-target="#exampleModall"
-                                            onclick="myfunction(<?php echo $id;?>)">Edit</a>
+                                            onclick="oclick(<?php echo $id;?>)">Edit</a>
                                     </div>
                                     <small class=" text-muted"><?php   ?></small>
                                 </div>
@@ -284,12 +280,11 @@ $result = mysqli_query($conn, $sql);
           crossorigin="anonymous"></script>
 <script type="text/javascript">
      
-       function myfunction(id){
-           
-       console.log(id);
+       function oclick(id){
+          
        report_id=id;
 
-        location.replace("./edit.php?" + report_id);
+        location.replace("./edit.php?id="+ report_id);
 
           
         }

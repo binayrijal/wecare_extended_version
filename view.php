@@ -20,15 +20,7 @@ $id=$_GET['id'];
 ?>
 
 
-
-
-
-
-
-
-
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -43,6 +35,10 @@ $id=$_GET['id'];
             padding: 0;
         }
 
+        .container {
+            /* margin: 10px 13px; */
+           
+        }
 
         .people {
             padding: 15px 10px;
@@ -72,33 +68,25 @@ $id=$_GET['id'];
     <div class="container people">
 
 
-        <form action="./php/update_record.php" method="post" enctype="multipart/form-data">
-            <div class="h2">Medical Reports No.<?php echo $row['id'];   ?> </div>
-
-
-            <div class="container mt-3">
-                <label for="exampleDataList" class="form-label">Report no:</label>
-                <input class="form-control border border-2 border-success" list="datalistOptions" id="exampleDataList"
-                    name="id"  readonly   value=<?php echo $id;  ?>
-                    
-            
+        <form action="./php/add_reports.php" method="post" enctype="multipart/form-data">
+            <div class="h2">Medical Reports No. <?php echo $row['id'];   ?></div>
 
             <div class="container mt-3">
                 <label for="exampleDataList" class="form-label">Patients's Username(बिरामीको प्रयोगकर्ता नाम)</label>
                 <input class="form-control border border-2 border-success" list="datalistOptions" id="exampleDataList"
-                    name="pusername"     value=<?php echo $row['username'];  ?>
+                    name="pusername" placeholder="Type Username to search..." readonly value=<?php echo $row['username'];  ?>
                     >
 
                 <div class="form-group mt-3 ">
                     <label for="exampleFormControlInput1">Patients's Email Address(बिरामीको इमेल ठेगाना)</label>
                     <input type="email" class="form-control border border-2 border-success" name="pemail"
-                        id="exampleFormControlInput1"  value=<?php echo $row['email'];  ?>>
+                        id="exampleFormControlInput1" placeholder="name@example.com" readonly value=<?php echo $row['email'];  ?>>
                 </div>
                 <div class="form-group mt-3">
                     <label for="exampleFormControlSelect1">Witness(साक्षी) if Any </label>
                     <select class="form-control border border-2 border-success" id="exampleFormControlSelect1"
-                        name="witness">
-                        <option value="No-one" >No-one</option>
+                        name="witness" readonly>
+                        <option value="No-one">No-one</option>
                         <option value="Father">Father</option>
                         <option value="Mother"  selected>Mother</option>
                         <option value="Sister">Sister</option>
@@ -112,34 +100,35 @@ $id=$_GET['id'];
                 <div class="form-group mt-3">
                     <label for="exampleFormControlTextarea1">Symptoms(लक्षणहरू) Of The Patient</label>
                     <textarea class="form-control border border-2 border-success" id="exampleFormControlTextarea1"
-                        rows="5" name="symptoms" ><?php echo $row['symptom'];  ?></textarea>
+                        rows="5" name="symptoms" <?php echo $row['symptom'];  ?>readonly></textarea>
                 </div>
                 <div class="form-group mt-3">
                     <label for="exampleFormControlTextarea1">Description Of The Disease(रोग को विवरण)</label>
                     <textarea class="form-control border border-2 border-success" id="exampleFormControlTextarea1"
-                        rows="7" name="disease"  ><?php echo $row['description'];  ?></textarea>
+                        rows="7" name="disease" readonly><?php echo $row['description'];  ?></textarea>
                 </div>
                 <div class="form-group mt-3">
                     <label for="exampleFormControlTextarea1">Description Of Medicines(औषधिको विवरण)</label>
                     <textarea class="form-control border border-2 border-success" id="exampleFormControlTextarea1"
-                        rows="5" name="medicine" ><?php echo $row['medicines'];  ?></textarea>
+                        rows="5" name="medicine" readonly><?php echo $row['medicines'];  ?></textarea>
                 </div>
                 <div class="form-group mt-3">
                     <label for="exampleFormControlTextarea1">Necessary Medical Reports(आवश्यक मेडिकल रिपोर्टहरू)</label>
                     <textarea class="form-control border border-2 border-success" id="exampleFormControlTextarea1"
-                        rows="5" name="reports" ><?php echo $row['reports'];  ?></textarea>
+                        rows="5" name="reports" readonly><?php echo $row['reports'];  ?></textarea>
                 </div>
                 <div class="form-group mt-3">
                     <label for="exampleFormControlTextarea1">Instruction Regarding Diet(आहार सम्बन्धि निर्देशन)</label>
                     <textarea class="form-control border border-2 border-success" id="exampleFormControlTextarea1"
-                        rows="5" name="diet" ><?php echo $row['instruction'];  ?></textarea>
+                        rows="5" name="diet" readonly><?php echo $row['instruction'];  ?></textarea>
                 </div>
                 <div class="form-group mt-3">
                     <label for="exampleFormControlInput1">Next Visit Date</label>
-                    <input type="date" class="form-control border border-2 border-success"
-                        id="exampleFormControlInput1" placeholder="dd/mm/yyyy" name="visit_date" required>
+                    <input type="datetime-local" class="form-control border border-2 border-success"
+                        id="exampleFormControlInput1" placeholder="dd/mm/yyyy" name="visit_date" readonly>
                 </div>
-                <?php echo $row['visit_date'];?>
+                 <?php echo $row['visit_date'];?>
+
 
 
                 <!-- Report photo  -->
@@ -147,21 +136,31 @@ $id=$_GET['id'];
                 <div class="form-group mt-3">
                     <label for="exampleFormControlFile1">Input the File Photo (Everything_All_About_Disease)</label>
                     <input type="file" class="form-control-file border border-2 border-success"
-                        id="exampleFormControlFile1" name="photo" required ?>
+                        id="exampleFormControlFile1" name="photo" readonly>
                 </div>
                 <?php     
                         echo $row['photo'];  ?>
+
 
                 <!-- report photo End here  -->
                 <hr style="height: 2px ;">
 
                 <div class="modal-footer">
-                    <a >
-                        <button type="submit"name="submit" class="btn btn-success" data-bs-dismiss="modal"
-                        >Update</button>
+                    <a href=<?php if($_SESSION['doctor']!=null){
+                        echo "./Medi-Report.php";
+                    }
+                    else{
+                        echo "./view-reports.php";
+                    }?>>
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Understand</button>
                     </a>
-                    <a>
-                        <button  type="button" class="btn btn-danger data-bs-dismiss=" modal" onclick="delete_records(<?php echo $row['id'];?>)">Delete</button>
+                    <a href=<?php if($_SESSION['doctor']!=null){
+                        echo "./Medi-Report.php";
+                    }
+                    else{
+                        echo "./view-reports.php";
+                    }?>>
+                        <button type="button" class="btn btn-danger data-bs-dismiss=" modal">Close</button>
                     </a>
                 </div>
             </div>
@@ -174,20 +173,7 @@ $id=$_GET['id'];
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
-         crossorigin="anonymous"></script>
-<script type="text/javascript">
-     
-       function delete_records(id){
-           
-       
-       report_id=id;
 
-        location.replace("./php/delete_record.php?id="+ report_id);
-
-          
-        }
-
-        </script>
 </body>
 
 </html>

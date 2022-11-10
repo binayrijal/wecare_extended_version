@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+if($_SESSION['p_report'] )
+{
+     unset($_SESSION['p_report']);
+
+}
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +19,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/78e6212ab3.js" crossorigin="anonymous"></script>
+    <!-- favicon ko link  -->
+    <link rel="shortcut icon" href="./images/logooo.png" type="image/x-icon">
+
     <title>Search Username </title>
     
 
@@ -26,8 +43,8 @@
             justify-content: space-between;
             align-items: center;
             /* background: linear-gradient(green,transparent); */
-            background-color: green;
-            border-bottom: 2px solid rgb(93, 255, 79);
+            background-color: #14A44D;
+            border-bottom: 1px solid rgb(52, 255, 33);
         }
         nav h2{
             color: white;
